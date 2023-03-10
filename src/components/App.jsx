@@ -21,6 +21,16 @@ function App () {
   const [number, setNumber ] = useState('');
   const [showModal, setShowModal ] = useState(false);
 
+useEffect(() => {
+  localStorage.setItem(CONTACTS, JSON.stringify(baseContacts));
+  const contactsString = localStorage.getItem(CONTACTS);
+  setContacts(JSON.parse(contactsString))
+}, [])
+
+useEffect(() => {
+  localStorage.setItem(CONTACTS, JSON.stringify(contacts));
+}, [contacts])
+
   const toggleModal = () => {
     setShowModal(!showModal);
   };
@@ -101,16 +111,6 @@ function App () {
   const handleFilter = event => {
     setFilter(event.target.value);
   };
-
-  useEffect(() => {
-    localStorage.setItem(CONTACTS, JSON.stringify(baseContacts));
-    const contactsString = localStorage.getItem(CONTACTS);
-    setContacts(JSON.parse(contactsString))
-  }, [])
-
-useEffect(() => {
-  localStorage.setItem(CONTACTS, JSON.stringify(contacts));
-}, [contacts])
 
     return (
       <div

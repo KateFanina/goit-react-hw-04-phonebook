@@ -14,18 +14,20 @@ import Modal from './modal/Modal';
 
 const CONTACTS = 'contacts';
 function App () {
-  const [contacts, setContacts ] = useState([]);
+  const [contacts, setContacts ] = useState(() => {
+    const contactsString = localStorage.getItem(CONTACTS);
+    if (!JSON.parse(contactsString).length) {
+      localStorage.setItem(CONTACTS, JSON.stringify(baseContacts));
+      return baseContacts;
+    } else {
+      return JSON.parse(contactsString);
+    }
+  });
   const [filter, setFilter ] = useState('');
   const [id, setId ] = useState('');
   const [name, setName ] = useState('');
   const [number, setNumber ] = useState('');
   const [showModal, setShowModal ] = useState(false);
-
-useEffect(() => {
-  localStorage.setItem(CONTACTS, JSON.stringify(baseContacts));
-  const contactsString = localStorage.getItem(CONTACTS);
-  setContacts(JSON.parse(contactsString))
-}, [])
 
 useEffect(() => {
   localStorage.setItem(CONTACTS, JSON.stringify(contacts));

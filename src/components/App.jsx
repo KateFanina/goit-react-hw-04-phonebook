@@ -113,6 +113,13 @@ useEffect(() => {
   const handleFilter = event => {
     setFilter(event.target.value);
   };
+  
+ const getVisibleContacts = () =>{
+  return contacts
+    .filter(contact => contact.name.toLowerCase()
+      .includes(filter.toLowerCase())
+      ||  contact.number.includes(filter));
+ }
 
     return (
       <div
@@ -154,8 +161,7 @@ useEffect(() => {
           <TitleList>Contacts</TitleList>
           <Filter handleFilter={e => handleFilter(e)} />
           <ContactList
-            contacts={contacts}
-            filter={filter}
+            contacts={getVisibleContacts()}
             onContactEdit={id => onContactEdit(id)}
             onContactDelete={id => onContactDelete(id)}
           />
